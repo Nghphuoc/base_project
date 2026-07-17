@@ -1,0 +1,42 @@
+server:
+  port: 8080
+  tomcat:
+    threads:
+      max: 50
+
+spring:
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        highlight_sql: true
+    hibernate:
+      ddl-auto: update
+  config:
+    import:
+      - optional:file:.env[.properties]
+      - optional:file:application/.env[.properties]
+  application:
+    name: application
+  main:
+    log-startup-info: false
+  profiles:
+    active: ${ENV:local}
+  threads:
+    virtual:
+      enabled: true
+
+  flyway:
+    enabled: false
+    baseline-on-migrate: true
+
+logging:
+  level:
+    root: ERROR
+    com.application: TRACE
+    org.hibernate.sql: TRACE
+    org.hibernate.orm.jdbc.bind: TRACE
+#
+#jwt:
+#  secret: ${JWT}
